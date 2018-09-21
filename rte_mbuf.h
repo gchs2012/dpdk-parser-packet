@@ -431,9 +431,9 @@ struct ss_mbuf {
     uint8_t  inner_l4_len;   // Inner L4 Length
     uint8_t  inner_smac[6];
     uint8_t  inner_dmac[6];
-	uint32_t inner_sip[4];
+    uint32_t inner_sip[4];
     uint32_t inner_dip[4];
-	uint8_t  smac[6];
+    uint8_t  smac[6];
     uint8_t  dmac[6];
     uint16_t sport;
     uint16_t dport;
