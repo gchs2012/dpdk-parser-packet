@@ -298,8 +298,8 @@ ss_skip_ip6_ext(const struct rte_mbuf *m, uint16_t proto,
 
     *frag = 0;
 
-#define ss_MAX_EXT_HDRS 5
-    for (i = 0; i < ss_MAX_EXT_HDRS; i++) {
+#define SS_MAX_EXT_HDRS 5
+    for (i = 0; i < SS_MAX_EXT_HDRS; i++) {
         switch (proto) {
         case IPPROTO_HOPOPTS:
         case IPPROTO_ROUTING:
@@ -349,7 +349,7 @@ ss_parser_pkt_inner_tcp(struct rte_mbuf *m, uint32_t off_len)
     th = rte_pktmbuf_read(m, off_len, sizeof(*th), &th_copy);
     SS_RETURN_RES(unlikely(th == NULL), 0);
 
-    m->ss.ssort = th->src_port;
+    m->ss.sport = th->src_port;
     m->ss.dport = th->dst_port;
     m->ss.inner_l4_len = SS_TCP_HLEN(th);
 
@@ -375,7 +375,7 @@ ss_parser_pkt_inner_sctp(struct rte_mbuf *m, uint32_t off_len)
     sh = rte_pktmbuf_read(m, off_len, sizeof(*sh), &sh_copy);
     SS_RETURN_RES(unlikely(sh == NULL), 0);
 
-    m->ss.ssort = sh->src_port;
+    m->ss.sport = sh->src_port;
     m->ss.dport = sh->dst_port;
     m->ss.inner_l4_len = sizeof(*sh);
 
@@ -611,7 +611,7 @@ ss_parser_pkt_udp_port(struct rte_mbuf *m, uint32_t off_len,
     case DEFAULT_DNS_PORT:
     {
         *find = 1;
-        m->ss.ssort = uh->src_port;
+        m->ss.sport = uh->src_port;
         m->ss.dport = uh->dst_port;
         m->ss.l4_len = sizeof(*uh);
         return 1;
@@ -676,7 +676,7 @@ ss_parser_pkt_tcp(struct rte_mbuf *m, uint32_t off_len)
     th = rte_pktmbuf_read(m, off_len, sizeof(*th), &th_copy);
     SS_RETURN_RES(unlikely(th == NULL), 0);
 
-    m->ss.ssort = th->src_port;
+    m->ss.sport = th->src_port;
     m->ss.dport = th->dst_port;
     m->ss.l4_len = SS_TCP_HLEN(th);
 
@@ -702,7 +702,7 @@ ss_parser_pkt_sctp(struct rte_mbuf *m, uint32_t off_len)
     sh = rte_pktmbuf_read(m, off_len, sizeof(*sh), &sh_copy);
     SS_RETURN_RES(unlikely(sh == NULL), 0);
 
-    m->ss.ssort = sh->src_port;
+    m->ss.sport = sh->src_port;
     m->ss.dport = sh->dst_port;
     m->ss.l4_len = sizeof(*sh);
 
