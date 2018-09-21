@@ -429,16 +429,16 @@ struct ss_mbuf {
     uint8_t  inner_l2_len;   // Inner L2 Length
     uint8_t  inner_l3_len;   // Inner L3 Length
     uint8_t  inner_l4_len;   // Inner L4 Length
-    uint8_t  smac[6];
-    uint8_t  dmac[6];
     uint8_t  inner_smac[6];
     uint8_t  inner_dmac[6];
+	uint32_t inner_sip[4];
+    uint32_t inner_dip[4];
+	uint8_t  smac[6];
+    uint8_t  dmac[6];
     uint16_t sport;
     uint16_t dport;
     uint32_t sip[4];
     uint32_t dip[4];
-    uint32_t inner_sip[4];
-    uint32_t inner_dip[4];
     uint32_t packet_type;
 } __rte_cache_aligned;
 /* END:   Added by zc, 2018/8/21 */
